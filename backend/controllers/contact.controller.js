@@ -54,4 +54,20 @@ res.json({status:200,message:"Contact deleted",success:true})
         console.log(err)
     }
 }
+exports.update=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const payload=req.body;        
+        const contact=await Contact.findOneAndUpdate({_id:id},payload,{new:true})
+        if(!contact){
+            return res.json({status:404,message:"Contact not found",success:false})
+        }
+        res.json({status:200,message:"Contact updated",success:true,contact})
+    }
+    catch(err){
+        console.log(err)
+    }
+   
+
+ }
 
